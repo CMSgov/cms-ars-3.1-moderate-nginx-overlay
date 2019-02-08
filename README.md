@@ -1,4 +1,4 @@
-# cms-ars-3.1-moderate-nginx-stig-overlay
+# cms-ars-3.1-nginx-overlay
 InSpec profile overlay to validate the secure configuration of NGINX based on [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Apache 2.2 Server for UNIX STIG Version ??? Release ??? tailored for [CMS ARS 3.1](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html) for CMS systems categories as Moderate.
 
 ## Getting Started  
@@ -14,12 +14,12 @@ When the __"runner"__ host uses this profile overlay for the first time, follow 
 ```
 mkdir profiles
 cd profiles
-git clone https://github.cms.gov/ispg-dev/cms-ars-3.1-moderate-nginx-stig-overlay.git
+git clone https://github.cms.gov/ispg-dev/cms-ars-3.1-nginx-overlay.git
 git clone https://github.com/mitre/nginx-baseline.git
 cd cms-ars-3.1-moderate-nginx-stig-overlay
 bundle install
 cd ..
-inspec exec cms-ars-3.1-moderate-nginx-stig-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
@@ -27,11 +27,11 @@ For every successive run, follow these steps to always have the latest version o
 ```
 cd profiles/nginx-baseline
 git pull
-cd ../cms-ars-3.1-moderate-nginx-stig-overlay
+cd ../cms-ars-3.1-nginx-overlay
 git pull
 bundle install
 cd ..
-inspec exec cms-ars-3.1-moderate-nginx-stig-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
 
 ## Viewing the JSON Results
