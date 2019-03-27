@@ -8,6 +8,28 @@ __For the best security of the runner, always install on the runner the _latest 
 
 Latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
 
+The following attributes must be configured in an attributes file for the profile to run correctly. More information about InSpec attributes can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
+
+```
+# Base URL of the RSA Archer application
+url: 'https://urltoarcherapp.org/'
+
+# Name of the RSA Archer instance
+instancename: 'archerapp'
+
+# RSA Archer user domain
+user_domain: ''
+
+# REST API user with at least 'read-only' access ot 'access control' attributes on RSA Archer
+username: 'restapiuser'
+
+# Password of the user is pulled from the environment variable
+password: <%=ENV['ARCHER_API_PASSWORD']%>
+
+# Set to 'false' if the RSA Archer application uses self-signed certificates
+ssl_verify: true`
+```
+
 ## Running This Overlay
 When the __"runner"__ host uses this profile overlay for the first time, follow these steps: 
 
@@ -19,7 +41,8 @@ git clone https://github.com/mitre/nginx-baseline.git
 cd cms-ars-3.1-moderate-nginx-stig-overlay
 bundle install
 cd ..
-inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs=cms-ars-3.1-nginx-overlay/static-attributes.yml <path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
@@ -31,7 +54,7 @@ cd ../cms-ars-3.1-nginx-overlay
 git pull
 bundle install
 cd ..
-inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs=cms-ars-3.1-nginx-overlay/static-attributes.yml <path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
 ```
 
 ## Viewing the JSON Results
