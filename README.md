@@ -11,23 +11,14 @@ Latest versions and installation options are available at the [InSpec](http://in
 The following attributes must be configured in an attributes file for the profile to run correctly. More information about InSpec attributes can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
 ```
-# Base URL of the RSA Archer application
-url: 'https://urltoarcherapp.org/'
+# description: Subnet of the DMZ
+dmz_subnet: '62.0.0.0/24'
 
-# Name of the RSA Archer instance
-instancename: 'archerapp'
+# description: DoD-approved PKIs (e.g., DoD PKI, DoD ECA, and DoD-approved external partners.
+dod_approved_pkis: ['DoD','ECA']
 
-# RSA Archer user domain
-user_domain: ''
-
-# REST API user with at least 'read-only' access ot 'access control' attributes on RSA Archer
-username: 'restapiuser'
-
-# Password of the user is pulled from the environment variable
-password: <%=ENV['ARCHER_API_PASSWORD']%>
-
-# Set to 'false' if the RSA Archer application uses self-signed certificates
-ssl_verify: true`
+# description: domain and port to the OCSP Server
+ocsp_server: 'login.live.com:443'
 ```
 
 ## Running This Overlay
