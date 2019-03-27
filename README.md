@@ -116,7 +116,7 @@ git clone https://github.com/mitre/nginx-baseline.git
 cd cms-ars-3.1-moderate-nginx-stig-overlay
 bundle install
 cd ..
-inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs= <path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json> 
 
 ```
 
@@ -129,7 +129,7 @@ cd ../cms-ars-3.1-nginx-overlay
 git pull
 bundle install
 cd ..
-inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs= <path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
+inspec exec cms-ars-3.1-nginx-overlay --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>  
 ```
 
 ## Viewing the JSON Results
