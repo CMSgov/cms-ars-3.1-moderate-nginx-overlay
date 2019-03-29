@@ -8,10 +8,10 @@ include_controls 'nginx-baseline' do
          or other resources are directly shared between the public web server and private 
          servers the intent of data and resource segregation can be compromised.'
     end
-  
+
   control 'V-2242' do
     title 'A public web server, if hosted on the NIPRNet, must be isolated in an accredited 
-          DMZ Extension.'
+          DMZ.'
     desc 'To minimize exposure of private assets to unnecessary risk by attackers, public web 
          servers must be isolated from internal systems. Public web servers are by nature more 
          vulnerable to attack from publically based sources, such as the public Internet. Once 
@@ -26,107 +26,37 @@ include_controls 'nginx-baseline' do
          to see if it conforms to the site’s network diagram. An improperly located public web 
          server is a potential threat to the entire network. If the web server is not isolated 
          in an accredited DMZ, this is a finding.'
-  end
-
-  control 'V-2259' do
-   desc 'check', 'Nginx directory and file permissions and ownership should be set per the 
-   	following table.. The installation directories may vary from one installation to the 
-	next.  If used, the WebAmins group should contain only accounts of persons authorized 
-	to manage the web server configuration, otherwise the root group should own all Nginx 
-	files and directories. 
-
-	If the files and directories are not set to the following permissions or more restrictive, 
-	this is a finding.
-
-	grep for the "root" directive on the nginx.conf file and any separate included configuration 
-	files to find the Nginx root directory
-
-	/usr/sbin/nginx       root WebAdmin 550/550
-	/etc/nginx/           root WebAdmin 770/660
-	/etc/nginx/conf.d     root WebAdmin 770/660
-	/etc/nginx/modules    root WebAdmin 770/660
-	/usr/share/nginx/html root WebAdmin 7750/6640
-	/var/log/nginx        root WebAdmin 750/640
-
-	NOTE:  The permissions are noted as directories / files'	  	   
-   desc 'fix', 'Use the chmod command to set permissions on the web server system directories and 
-        files as follows.
-
-         /usr/sbin/nginx       root WebAdmin 550/550
-	 /etc/nginx/           root WebAdmin 770/660
-	 /etc/nginx/conf.d     root WebAdmin 770/660	
-	 /etc/nginx/modules    root WebAdmin 770/660
-	 /usr/share/nginx/html root WebAdmin 750/6640
-	 /var/log/nginx        root WebAdmin 750/640'
-
-   describe file('/etc/nginx/conf.d') do
-     its('owner') { should be_in authorized_sa_user_list }
-     its('group') { should be_in authorized_sa_group_list }
-     its('mode') { should cmp <= 0770 }
-   end
-   describe file('/etc/nginx/conf.d') do
-     it { should be_owned_by NGINX_OWNER }
-     its('group') { should cmp NGINX_GROUP }
-     its('mode') { should cmp <= 0660 }
-   end
- 
-   describe.one do
-     describe file('/etc/nginx/modules') do
-       its('owner') { should be_in authorized_sa_user_list }
-       its('group') { should be_in authorized_sa_group_list }
-       its('mode') { should cmp <= 0770 }
-     end
-     describe file('/etc/nginx/modules') do
-       it { should be_owned_by NGINX_OWNER }
-       its('group') { should cmp NGINX_GROUP }
-       its('mode') { should cmp <= 0660 }
-     end
-   end
-   describe.one do
-     describe file('/usr/share/nginx/html') do
-       its('owner') { should be_in authorized_sa_user_list }
-       its('group') { should be_in authorized_sa_group_list }
-       its('mode') { should cmp <= 1770 }
-     end
-     describe file('/usr/share/nginx/html') do
-       it { should be_owned_by NGINX_OWNER }
-       its('group') { should cmp NGINX_GROUP }
-       its('mode') { should cmp <= 0660 }
-     end
-   end
-   describe.one do
-     describe file('/var/log/nginx') do
-       its('owner') { should be_in authorized_sa_user_list }
-       its('group') { should be_in authorized_sa_group_list }
-       its('mode') { should cmp <= 0750 }
-     end
-     describe file('/var/log/nginx') do
-       it { should be_owned_by NGINX_OWNER }
-       its('group') { should cmp NGINX_GROUP }
-       its('mode') { should cmp <= 0640 }
-     end
-   end
-   
-  rescue Exception => msg
-    describe "Exception: #{msg}" do
-      it { should be_nil }
-    end
-  end
-  
-  control 'V-6485' do
-    describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do
+    describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do 
       skip "For this CMS ARS 3.1 overlay, this control must be reviewed manually"
     end
-  end
+  end	     
 
-  control 'V-6577' do
-    describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do
+  control 'V-2246' do
+    desc 'check', 'To determine the version of the nginx software that is running on the 
+         system. Use the command:
+
+         nginx -v
+
+         If the version of nginx is not at the following version or higher, this is a finding.
+
+         nginx version: nginx/1.15.0
+
+         Note: In some situations, the nginx software that is being used is supported by another 
+         vendor, such as nginx.com. 
+
+         The versions of the software in these cases may not match the above mentioned version 
+         numbers. If the site can provide vendor documentation showing the version of the web 
+         server is supported, this would not be a finding.'
+  end
+    
+  control 'V-6485' do
+    describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do 
       skip "For this CMS ARS 3.1 overlay, this control must be reviewed manually"
     end
   end
   
   control 'V-13613' do
-    describe.one do
+    describe.one
       describe "All packages are up to date" do
         subject { linux_update.updates.length }
         it { should eq 0 }
@@ -136,7 +66,6 @@ include_controls 'nginx-baseline' do
           its('version') { should eq update['version'] }
         end
       end
-    end
   end
 
   control 'V-13620' do
@@ -152,7 +81,7 @@ include_controls 'nginx-baseline' do
          authenticated, issued, and managed by a trusted Certificate Authority (CA).                                               
          The use of a trusted certificate validation hierarchy is crucial to the                                                       
          ability to control access to a site’s server and to prevent unauthorized                                                       
-         access. Only CMS-approved PKIs will be utilized. "
+         access. Only CMS-approved PKIs will be utilized."
     
     tag "check": "Enter the following command:                                                                                
         
@@ -175,12 +104,6 @@ include_controls 'nginx-baseline' do
     tag "fix": "Configure the web server’s trust store to trust only CMS-approved PKIs 
         (e.g., DoD PKI, DoD ECA, and DoD-approved external partners)."
     
-    describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do
-      skip "For this CMS ARS 3.1 overlay, this control must be reviewed manually"
-    end
-  end
-
-  control 'V-13621' do
     describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do
       skip "For this CMS ARS 3.1 overlay, this control must be reviewed manually"
     end
