@@ -11,98 +11,66 @@ Latest versions and installation options are available at the [InSpec](http://in
 The following attributes must be configured in an attributes file for the profile to run correctly. More information about InSpec attributes can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
 ```
-# description: Path for the nginx configuration file
-nginx_conf_file: '/etc/nginx/nginx.conf'
+# description: Path for the nginx configuration file (e.g., '/etc/nginx/nginx.conf') 
+nginx_conf_file: ''
 
-# description: Path to nginx backup repository
-nginx_backup_repository: '/usr/share/nginx/html'
+# description: Path to nginx backup repository (e.g., '/usr/share/nginx/html')
+nginx_backup_repository: ''
 
-# description: Subnet of the DMZ
-dmz_subnet: '62.0.0.0/24'
+# description: Subnet of the DMZ (e.g., '62.0.0.0/24')
+dmz_subnet: ''
 
-# description: Minimum Web vendor-supported version.
-nginx_min_ver: '1.12.0'
+# description: Minimum Web vendor-supported version (e.g., '1.12.0').
+nginx_min_ver: ''
 
-# description: Nginx owner
-nginx_owner: 'nginx'
+# description: Nginx owner (e.g., 'nginx')
+nginx_owner: ''
 
-# description: The Nginx group,
-nginx_group: 'nginx'
+# description: The Nginx group (e.g., 'nginx')
+nginx_group: ''
 
-# description: The system adminstrator,
-sys_admin: ['root','centos']
+# description: The system adminstrator (e.g., ['root','centos'])
+sys_admin: []
 
-# description: The system adminstrator group,
-sys_admin_group: 'root'
+# description: The system adminstrator group (e.g., 'root')
+sys_admin_group: ''
 
-# description: List of non admin user accounts
-authorized_user_list:
-    ['user'
-    ]
+# description: List of non admin user accounts (e.g., ['user'])
+authorized_user_list: []
 
-# description: Monitoring software for CGI or equivalent programs,
-monitoring_software: ['audit', 'auditd']
+# description: Monitoring software for CGI or equivalent programs (e.g., ['audit', 'auditd'])
+monitoring_software: []
 
-# description: 'List of disallowed packages',
-disallowed_packages_list: ['postfix']
+# description: List of disallowed packages (e.g., ['postfix'])
+disallowed_packages_list: []
 
-# description: List of disallowed compilers
-disallowed_compiler_list:
-    ['gcc'
-    ]
+# description: List of disallowed compilers (e.g., ['gcc'])
+disallowed_compiler_list: []
 
-# description: DoD-approved PKIs (e.g., DoD PKI, DoD ECA, and DoD-approved external partners.
-dod_approved_pkis:
-    ['DoD',
-     'ECA'
-    ]
+# description: DoD-approved PKIs such as DoD PKI, DoD ECA, and DoD-approved external partners (e.g. ['DoD', 'ECA'])
+dod_approved_pkis: []
 
-# description: File list of  documentation, sample code, example applications, and tutorials.
-nginx_disallowed_file_list:
-    [ '/usr/share/man/man8/nginx.8.gz'
-    ]
+# description: File list of documentation, sample code, example applications, and tutorials (e.g.,['/usr/share/man/man8/nginx.8.gz'])
+nginx_disallowed_file_list: []
 
 # description: File list of allowed documentation, sample code, example applications, and tutorials.
-nginx_allowed_file_list:
-    [
-    ]
+nginx_allowed_file_list: []
 
-# description: List of  authorized nginx modules.
-nginx_authorized_modules:
-    ['http_addition',
-     'http_auth_request',
-     'http_dav',
-     'http_flv',
-     'http_gunzip',
-     'http_gzip_static',
-     'http_mp4',
-     'http_random_index',
-     'http_realip',
-     'http_secure_link',
-     'http_slice',
-     'http_ssl',
-     'http_stub_status',
-     'http_sub',
-     'http_v2',
-     'mail_ssl',
-     'stream_realip',
-     'stream_ssl',
-     'stream_ssl_preread'
-     ]
+# description: List of authorized nginx modules (e.g., ['http_addition', 'http_auth_request', 'http_dav', 'http_flv', 'http_gunzip', 'http_gzip_static', 'http_mp4', 'http_random_index', 'http_realip', 'http_secure_link', 'http_slice', 'http_ssl', 'http_stub_status', 'http_sub', 'http_v2', 'mail_ssl', 'stream_realip', 'stream_ssl', 'stream_ssl_preread']).
 
-# description: List of  unauthorized nginx modules.
-nginx_unauthorized_modules:
-    [
-    ]
+nginx_authorized_modules: []
 
-# description: Path for the nginx binary
-nginx_path: '/usr/sbin/nginx'
+# description: List of unauthorized nginx modules.
+nginx_unauthorized_modules: []
 
-# description: domain and port to the OCSP Server
-ocsp_server: 'login.live.com:443'
+# description: Path for the nginx binary (e.g., '/usr/sbin/nginx')
+nginx_path: ''
 
-# description: Frequency at which CRL is updated in days
-crl_udpate_frequency: 7
+# description: domain and port to the OCSP Server (e.g., 'login.live.com:443')
+ocsp_server: ''
+
+# description: Frequency at which CRL is updated in days (e.g., 7)
+crl_udpate_frequency: 
 ```
 
 ## Running This Overlay
@@ -151,7 +119,7 @@ The JSON InSpec results file may also be loaded into a __[full heimdall server](
 
 
 ## Contributing and Getting Help
-To report a bug or feature request, please open an [issue](https://github.cms.gov/ispg/cms-ars-3.1-moderate-nginx-overlay/issues).
+To report a bug or feature request, please open an [issue](https://github.cms.gov/ISPG/cms-ars-3.1-moderate-nginx-overlay/issues).
 
 ## License
 This is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license. 
