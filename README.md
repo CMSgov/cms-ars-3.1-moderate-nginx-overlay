@@ -70,7 +70,7 @@ nginx_path: ''
 ocsp_server: ''
 
 # description: Frequency at which CRL is updated in days (e.g., 7)
-crl_udpate_frequency: 
+crl_update_frequency: 
 ```
 
 ## Running This Overlay
