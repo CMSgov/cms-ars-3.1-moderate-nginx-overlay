@@ -50,7 +50,7 @@ attributes:
 
 - name: sys_admin_group
   description: The system adminstrator group (e.g., 'root').
-  type; string
+  type: string
   default: ''
 
 - name: authorized_user_list
