@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="cms-ars-3.1-moderate-nginx-overlay">cms-ars-3.1-moderate-nginx-overlay</h1>
+<p>InSpec profile overlay to validate the secure configuration of NGINX based on <a href="https://iase.disa.mil/stigs/Pages/index.aspx">DISA’s</a> Apache 2.2 Server tailored for <a href="https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html">CMS ARS 3.1</a> for CMS systems categorized as Moderate.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>It is intended and recommended that InSpec and this profile overlay be run from a <strong>“runner”</strong> host (such as a DevOps orchestration server, an administrative management system, or a developer’s workstation/laptop) against the target remotely over <strong>ssh</strong>.</p>
+<p><strong>For the best security of the runner, always install on the runner the <em>latest version</em> of InSpec and supporting Ruby language components.</strong></p>
+<p>Latest versions and installation options are available at the <a href="http://inspec.io/">InSpec</a> site.</p>
+<p>The following attributes must be configured in an attributes file for the profile to run correctly. More information about InSpec attributes can be found in the <a href="https://www.inspec.io/docs/reference/profiles/">InSpec Profile Documentation</a>.</p>
+<pre><code># description: Path for the nginx configuration file (e.g., &#39;/etc/nginx/nginx.conf&#39;) 
+nginx_conf_file: &#39;&#39;
+
+# description: Path to nginx backup repository (e.g., &#39;/usr/share/nginx/html&#39;)
+nginx_backup_repository: &#39;&#39;
+
+# description: Subnet of the DMZ (e.g., &#39;62.0.0.0/24&#39;)
+dmz_subnet: &#39;&#39;
+
+# description: Minimum Web vendor-supported version (e.g., &#39;1.12.0&#39;).
+nginx_min_ver: &#39;&#39;
+
+# description: Nginx owner (e.g., &#39;nginx&#39;)
+nginx_owner: &#39;&#39;
+
+# description: The Nginx group (e.g., &#39;nginx&#39;)
+nginx_group: &#39;&#39;
+
+# description: The system adminstrator (e.g., [&#39;root&#39;,&#39;centos&#39;])
+sys_admin: []
+
+# description: The system adminstrator group (e.g., &#39;root&#39;)
+sys_admin_group: &#39;&#39;
+
+# description: List of non admin user accounts (e.g., [&#39;user&#39;])
+authorized_user_list: []
+
+# description: Monitoring software for CGI or equivalent programs (e.g., [&#39;audit&#39;, &#39;auditd&#39;])
+monitoring_software: []
+
+# description: List of disallowed packages (e.g., [&#39;postfix&#39;])
+disallowed_packages_list: []
+
+# description: List of disallowed compilers (e.g., [&#39;gcc&#39;])
+disallowed_compiler_list: []
+
+# description: DoD-approved PKIs such as DoD PKI, DoD ECA, and DoD-approved external partners (e.g. [&#39;DoD&#39;, &#39;ECA&#39;])
+dod_approved_pkis: []
+
+# description: File list of documentation, sample code, example applications, and tutorials (e.g.,[&#39;/usr/share/man/man8/nginx.8.gz&#39;])
+nginx_disallowed_file_list: []
+
+# description: File list of allowed documentation, sample code, example applications, and tutorials.
+nginx_allowed_file_list: []
+
+# description: List of authorized nginx modules (e.g., [&#39;http_addition&#39;, &#39;http_auth_request&#39;, &#39;http_dav&#39;, &#39;http_flv&#39;, &#39;http_gunzip&#39;, &#39;http_gzip_static&#39;, &#39;http_mp4&#39;, &#39;http_random_index&#39;, &#39;http_realip&#39;, &#39;http_secure_link&#39;, &#39;http_slice&#39;, &#39;http_ssl&#39;, &#39;http_stub_status&#39;, &#39;http_sub&#39;, &#39;http_v2&#39;, &#39;mail_ssl&#39;, &#39;stream_realip&#39;, &#39;stream_ssl&#39;, &#39;stream_ssl_preread&#39;]).
+
+nginx_authorized_modules: []
+
+# description: List of unauthorized nginx modules.
+nginx_unauthorized_modules: []
+
+# description: Path for the nginx binary (e.g., &#39;/usr/sbin/nginx&#39;)
+nginx_path: &#39;&#39;
+
+# description: domain and port to the OCSP Server (e.g., &#39;login.live.com:443&#39;)
+ocsp_server: &#39;&#39;
+
+# description: Frequency at which CRL is updated in days (e.g., 7)
+crl_update_frequency: </code></pre>
+<h2 id="running-this-overlay">Running This Overlay</h2>
+<p>When the <strong>“runner”</strong> host uses this profile overlay for the first time, follow these steps:</p>
+<pre><code>mkdir profiles
+cd profiles
+git clone https://github.cms.gov/ispg/cms-ars-3.1-moderate-nginx-overlay.git
+git clone https://github.com/mitre/nginx-baseline.git
+cd cms-ars-3.1-moderate-nginx-stig-overlay
+bundle install
+cd ..
+inspec exec cms-ars-3.1-moderate-nginx-overlay --target=ssh://&lt;your_target_host_name_or_ip_address&gt; --user=&lt;target_account_with_administrative_privileges&gt; --password=&lt;password_for_target_account&gt; --attrs=&lt;path_to_your_attributes_file/name_of_your_attributes_file.yml&gt; --reporter=cli json:&lt;path_to_your_output_file/name_of_your_output_file.json&gt; 
+</code></pre>
+<p>For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:</p>
+<pre><code>cd profiles/nginx-baseline
+git pull
+cd ../cms-ars-3.1-moderate-nginx-overlay
+git pull
+bundle install
+cd ..
+inspec exec cms-ars-3.1-moderate-nginx-overlay --target=ssh://&lt;your_target_host_name_or_ip_address&gt; --user=&lt;target_account_with_administrative_privileges&gt; --password=&lt;password_for_target_account&gt; --attrs=&lt;path_to_your_attributes_file/name_of_your_attributes_file.yml&gt; --reporter=cli json:&lt;path_to_your_output_file/name_of_your_output_file.json&gt;  </code></pre>
+<h2 id="viewing-the-json-results">Viewing the JSON Results</h2>
+<p>The JSON results output file can be loaded into <strong><a href="https://mitre.github.io/heimdall-lite/">heimdall-lite</a></strong> for a user-interactive, graphical view of the InSpec results.</p>
+<p>The JSON InSpec results file may also be loaded into a <strong><a href="https://github.com/mitre/heimdall">full heimdall server</a></strong>, allowing for additional functionality such as to store and compare multiple profile runs.</p>
+<h2 id="authors">Authors</h2>
+<ul>
+<li>Eugene Aronne</li>
+<li>Danny Haynes</li>
+</ul>
+<h2 id="special-thanks">Special Thanks</h2>
+<ul>
+<li>Patrick Muench</li>
+<li>Dominik Richter</li>
+<li>Christoph Hartmann</li>
+<li>Rony Xaiver</li>
+<li>Aaron Lippold</li>
+</ul>
+<h2 id="contributing-and-getting-help">Contributing and Getting Help</h2>
+<p>To report a bug or feature request, please open an <a href="https://github.cms.gov/ISPG/cms-ars-3.1-moderate-nginx-overlay/issues">issue</a>.</p>
+<h2 id="license">License</h2>
+<p>This is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license.</p>
+<h3 id="notice">NOTICE</h3>
+<p>This software was produced for the U. S. Government under Contract Number HHSM-500-2012-00008I, and is subject to Federal Acquisition Regulation Clause 52.227-14, Rights in Data-General.</p>
+<p>No other use other than that granted to the U. S. Government, or to those acting on behalf of the U. S. Government under that Clause is authorized without the express written permission of The MITRE Corporation.</p>
+<p>For further information, please contact The MITRE Corporation, Contracts Management Office, 7515 Colshire Drive, McLean, VA 22102-7539, (703) 983-6000.</p>
+<h3 id="notice-1">NOTICE</h3>
+<p>DISA STIGs are published by DISA IASE, see: https://iase.disa.mil/Pages/privacy_policy.aspx</p>
+</body>
+</html>
