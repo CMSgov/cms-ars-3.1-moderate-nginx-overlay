@@ -81,7 +81,7 @@ When the __"runner"__ host uses this profile overlay for the first time, follow 
 ```
 mkdir profiles
 cd profiles
-git clone https://github.cms.gov/CMSgov/cms-ars-3.1-moderate-nginx-overlay.git
+git clone https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay.git
 git clone https://github.com/mitre/nginx-baseline.git
 cd cms-ars-3.1-moderate-nginx-stig-overlay
 bundle install
@@ -121,7 +121,7 @@ The JSON InSpec results file may also be loaded into a __[full heimdall server](
 
 
 ## Contributing and Getting Help
-To report a bug or feature request, please open an [issue](https://github.cms.gov/CMSgov/cms-ars-3.1-moderate-nginx-overlay/issues).
+To report a bug or feature request, please open an [issue](https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/issues).
 
 ## License
 This is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license. 
