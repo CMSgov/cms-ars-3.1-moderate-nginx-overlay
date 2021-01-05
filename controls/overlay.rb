@@ -57,7 +57,7 @@ include_controls 'nginx-baseline' do
 
     desc "A PKI certificate is a digital identifier that establishes the identity of an individual or a platform. A server that has a certificate provides users with third-party confirmation of authenticity. Most web browsers perform server authentication automatically and the user is notified only if the authentication fails. The authentication process between the server and the client is performed using the SSL/TLS protocol. Digital certificates are authenticated, issued, and managed by a trusted Certificate Authority (CA). The use of a trusted certificate validation hierarchy is crucial to the ability to control access to a site’s server and to prevent unauthorized access. Only CMS-approved PKIs will be utilized."
     
-    tag "check": "Enter the following command:
+    tag "check", "Enter the following command:
     find / -name ssl.conf
     note the path of the file.
 
@@ -77,7 +77,7 @@ include_controls 'nginx-baseline' do
 
   control 'V-13672' do
     title "The private web server must use an approved CMS certificate validation process."
-    tag "check": "The reviewer should query the ISSO, the SA, the web administrator, or developers as necessary to determine if the web server is configured to utilize an approved CMS certificate validation process.
+    tag "check", "The reviewer should query the ISSO, the SA, the web administrator, or developers as necessary to determine if the web server is configured to utilize an approved CMS certificate validation process.
     The web administrator should be questioned to determine if a validation process is being utilized on the web server.
     To validate this, the reviewer can ask the web administrator to describe the validation process being used. They should be able to identify either the use of certificate revocation lists (CRLs) or Online Certificate Status Protocol (OCSP).
     
@@ -86,7 +86,7 @@ include_controls 'nginx-baseline' do
     If CRLs are being used, the SA should be able to identify how often the CRL is updated and the location from which the CRL is downloaded.
     
     If the web administrator cannot identify the type of validation process being used, this is a finding."
-    tag "fix": "Configure CMS Private Web Servers to conduct certificate revocation checking utilizing certificate revocation lists (CRLs) or Online Certificate Status Protocol (OCSP)."
+    tag "fix", "Configure CMS Private Web Servers to conduct certificate revocation checking utilizing certificate revocation lists (CRLs) or Online Certificate Status Protocol (OCSP)."
   end
 
 end
