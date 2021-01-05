@@ -40,7 +40,7 @@ include_controls 'nginx-baseline' do
   end
   
   control 'V-13613' do
-    describe.one
+    describe.one do
       describe "All packages are up to date" do
         subject { linux_update.updates.length }
         it { should eq 0 }
@@ -50,6 +50,7 @@ include_controls 'nginx-baseline' do
           its('version') { should eq update['version'] }
         end
       end
+    end
   end
 
   control 'V-13620' do
@@ -68,7 +69,7 @@ include_controls 'nginx-baseline' do
     Examine the contents of this file to determine if the trusted CAs are CMS approved. If the trusted CA that is used to authenticate users to the web site does not lead to an approved CMS CA, this is a finding.
 
     NOTE: There are non CMS roots that must be on the server in order for it to function. Some applications, such as anti-virus programs, require root CAs to function. CMS approved certificate can include external CAs if approved by CMS."
-    tag "fix": "Configure the web server’s trust store to trust only CMS-approved PKIs (e.g., DoD PKI, DoD ECA, and DoD-approved external partners)."
+    tag "fix", "Configure the web server’s trust store to trust only CMS-approved PKIs (e.g., DoD PKI, DoD ECA, and DoD-approved external partners)."
     
     describe "For this CMS ARS 3.1 overlay, this control must be reviewed manually" do
       skip "For this CMS ARS 3.1 overlay, this control must be reviewed manually"
