@@ -1,116 +1,13 @@
-name: NGINX Based on Apache 2.2 Server for UNIX Security Technical Implementation Guide
-title: NGINX Based on Apache 2.2 Server for UNIX Security Technical Implementation Guide
+name: cms-ars-3.1-moderate-nginx-overlay
+title: cms-ars-3.1-moderate-nginx-overlay
 maintainer: The CMS InSpec Dev Teams
 copyright: (c) 2018 The MITRE Corporation
 copyright_email: inspec@mitre.org
 license: Apache-2.0
-summary: CMS ARS 3.1 overlay for NGINX based on Apache 2.2 Server for UNIX DISA STIG.
-version: 0.1.0
+summary: "CMS ARS 3.1 Moderate Overlay InSpec Validation Profile for NGINX based on Apache 2.2 Server UNIX DISA STIG."
+version: 2.2.0
+inspec_version: ">= 4.0"
 
 depends:
 - name: nginx-baseline
-  git: https://github.com/mitre/nginx-baseline
-  branch: master
-
-attributes:
-- name: nginx_conf_file	
-  description: Path for the nginx configuration file (e.g., '/etc/nginx/nginx.conf')
-  type: string
-  default: ''
-
-- name: nginx_backup_repository
-  description: Path to nginx backup repository (e.g., '/usr/share/nginx/html')
-  type: string
-  default: ''
-
-- name: dmz_subnet
-  description: Subnet of the DMZ (e.g., '62.0.0.0/24')
-  type: string
-  default: ''
-
-- name: nginx_min_ver
-  description: Minimum Web vendor-supported version ('1.12.0').
-  type: string
-  default: ''
-
-- name: nginx_owner
-  description: Nginx owner (e.g., 'nginx').
-  type: string
-  default: ''
-
-- name: nginx_group
-  description: The Nginx group (e.g., 'nginx').
-  type: string
-  default: ''
-
-- name: sys_admin
-  description: The system adminstrator (e.g., ['root','centos']).
-  string: array
-  default: []
-
-- name: sys_admin_group
-  description: The system adminstrator group (e.g., 'root').
-  type: string
-  default: ''
-
-- name: authorized_user_list
-  description: List of non admin user accounts (e.g., ['user']).
-  type: array
-  default: []
-
-- name: monitoring_software
-  description: Monitoring software for CGI or equivalent programs (e.g., ['audit', 'auditd']).
-  type: array
-  default: []
-
-- name: disallowed_packages_list
-  description: List of disallowed packages (e.g., ['postfix']).
-  type: array
-  default: []
-
-- name: disallowed_compiler_list
-  description: List of disallowed compilers (e.g., ['gcc'])
-  type: array
-  default: []
-
-- name: dod_approved_pkis
-  description: DoD-approved PKIs (e.g., ['DoD','ECA']).
-  type: array
-  default: []
-
-- name: nginx_disallowed_file_list
-  description: File list of  documentation, sample code, example applications, and tutorials (e.g., ['/usr/share/man/man8/nginx.8.gz']).
-  type: array
-  default: []
-
-- name: nginx_allowed_file_list
-  description: File list of allowed documentation, sample code, example applications, and tutorials.
-  type: array
-  default: []
-
-- name: ngix_authorized_modules
-  description: List of authorized nginx modules (e.g., ['http_addition', 'http_auth_request', 'http_dav', 'http_flv',
-     'http_gunzip', 'http_gzip_static', 'http_mp4', 'http_random_index', 'http_realip', 'http_secure_link', 'http_slice',
-     'http_ssl', 'http_stub_status', 'http_sub', 'http_v2', 'mail_ssl', 'stream_realip', 'stream_ssl', 'stream_ssl_preread']).
-  type: array
-  default: []
-
-- name: nginx_unauthorized_modules
-  description: List of unauthorized nginx modules.
-  type: array
-  default: []
-
-- name: nginx_path
-  description: Path for the nginx binary (e.g., '/usr/sbin/nginx')
-  type: string
-  default: ''
-
-- name: ocsp_server
-  description: domain and port to the OCSP Server (e.g., 'login.live.com:443')
-  type: string
-  default: ''
-
-- name: crl_update_frequency
-  description: Frequency at which CRL is updated in days (e.g., 7)
-  type: numeric
-  default: 7
+  url: https://github.com/mitre/nginx-baseline/archive/master.tar.gz
