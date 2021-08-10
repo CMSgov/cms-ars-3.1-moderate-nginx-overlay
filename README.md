@@ -1,6 +1,8 @@
 # cms-ars-3.1-moderate-nginx-overlay
 InSpec profile overlay to validate the secure configuration of NGINX based on [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Apache 2.2 Server tailored for [CMS ARS 3.1](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html) for CMS systems categorized as Moderate.
 
+#### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of nginx, based on reference container: https://ironbank.dso.mil/repomap/opensource/nginx
+
 ## Getting Started  
 It is intended and recommended that InSpec and this profile overlay be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target remotely over __ssh__.
 
@@ -80,6 +82,30 @@ crl_update_frequency:
 # How to run
 inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
+Against a remote target using ssh with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on a separate runner host)
+```bash
+# How to run 
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
+```
+
+Against a remote target using a pem key with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on a separate runner host)
+```bash
+# How to run 
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t ssh://TARGET_USERNAME@TARGET_IP:TARGET_PORT --sudo -i <your_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>  
+```
+
+Against a locally-hosted instance with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on the target)
+```bash
+# How to run
+sudo inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
+```
+
+Against a docker-containerized instance:
+```bash
+# How to run
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t docker://instance_id --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
+```
+
 
 ### Different Run Options
 
@@ -98,7 +124,7 @@ mkdir profiles
 cd profiles
 git clone https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay.git
 inspec archive cms-ars-3.1-moderate-nginx-overlay
-inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>
 
 ```
 
@@ -109,7 +135,7 @@ cd cms-ars-3.1-moderate-nginx-overlay
 git pull
 cd ..
 inspec archive cms-ars-3.1-moderate-nginx-overlay --overwrite
-inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ## Using Heimdall for Viewing the JSON Results
