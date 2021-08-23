@@ -1,6 +1,8 @@
 # cms-ars-3.1-moderate-nginx-overlay
 InSpec profile overlay to validate the secure configuration of NGINX based on [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) Apache 2.2 Server tailored for [CMS ARS 3.1](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html) for CMS systems categorized as Moderate.
 
+#### Container-Ready: Profile updated to adapt checks when the running against a containerized instance of nginx, based on reference container: https://ironbank.dso.mil/repomap/opensource/nginx
+
 ## Getting Started  
 It is intended and recommended that InSpec and this profile overlay be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target remotely over __ssh__.
 
@@ -76,10 +78,26 @@ crl_update_frequency:
 
 ## Running This Overlay Directly from Github
 
+Against a _**remote**_ target using ssh with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on a separate runner host)
+```bash
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
-# How to run
-inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+
+Against a _**remote**_ target using a _**pem**_ key with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on a separate runner host)
+```bash
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t ssh://TARGET_USERNAME@TARGET_IP:TARGET_PORT --sudo -i <your_PEM_KEY> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>  
 ```
+
+Against a _**locally-hosted**_ instance with escalated privileges (if escalated privileges are needed) (i.e., InSpec installed on the target)
+```bash
+sudo inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
+```
+
+Against a _**docker-containerized**_ instance:
+```bash
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz -t docker://instance_id --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
+```
+
 
 ### Different Run Options
 
@@ -98,9 +116,10 @@ mkdir profiles
 cd profiles
 git clone https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay.git
 inspec archive cms-ars-3.1-moderate-nginx-overlay
-inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec exec <name of generated archive file> -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
 
 ```
+_(execute using the same methods discussed above, substituting the name of the generated archive in place of "https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz")_
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
 
@@ -109,14 +128,15 @@ cd cms-ars-3.1-moderate-nginx-overlay
 git pull
 cd ..
 inspec archive cms-ars-3.1-moderate-nginx-overlay --overwrite
-inspec exec <name of generated archive> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec exec <name of generated archive file> -t ssh://TARGET_USERNAME:TARGET_PASSWORD@TARGET_IP:TARGET_PORT --sudo --sudo-password=<SUDO_PASSWORD_IF_REQUIRED> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json> 
 ```
+_(execute using the same methods discussed above, substituting the name of the generated archive in place of "https://github.com/CMSgov/cms-ars-3.1-moderate-nginx-overlay/archive/master.tar.gz")_
 
 ## Using Heimdall for Viewing the JSON Results
 
-The JSON results output file can be loaded into __[heimdall-lite](https://heimdall-lite.mitre.org/)__ for a user-interactive, graphical view of the InSpec results. 
+The JSON results output file can be loaded into __[heimdall-lite](https://heimdall-lite.cms.gov/)__ for a user-interactive, graphical view of the InSpec results. 
 
-The JSON InSpec results file may also be loaded into a __[full heimdall server](https://github.com/mitre/heimdall)__, allowing for additional functionality such as to store and compare multiple profile runs.
+The JSON InSpec results file may also be loaded into a __[full heimdall server](https://github.com/mitre/heimdall2)__, allowing for additional functionality such as to store and compare multiple profile runs.
 
 ## Authors
 * Eugene Aronne - [ejaronne](https://github.com/ejaronne)
